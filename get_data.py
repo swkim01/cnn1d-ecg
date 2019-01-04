@@ -207,9 +207,15 @@ def get_data(ecg_name):
                         ecgtype.append(row[2])
 
             # write sample files
+            count = [0, 0, 0, 0, 0]
             for index, pi in enumerate(tl):
                 data = ch1[pi-RANGE:pi+RANGE]
                 if not ecgtype[index] in ecg_classes:
+                    continue
+                # skip if too many samples in each class
+                cl = ecg_classes[ecgtype[index]]
+                count[cl] = count[cl] + 1
+                if count[cl] > 800:
                     continue
                 class_name = str(ecg_classes[ecgtype[index]])
                 output_path = sample_dir+'/'+class_name+'/'+bname+'_'+str(index)+'.txt'

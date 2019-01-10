@@ -39,10 +39,12 @@ def plot_data(ecg_name):
                 for i, row in enumerate(reader):
                     if i >= 3600 and i < 7200:
                         t.append(row[0])
-                        ch1.append(row[1])
-                        ch2.append(row[2])
+                        ch1.append(float(row[1]))
+                        ch2.append(float(row[2]))
             fig, ax = plt.subplots(2)
             ax[0].set_title(record)
+            ax[0].set_xlabel('Time(sample)')
+            ax[0].set_ylabel('voltage(mV)')
             ax[0].plot(ch1)
             ax[1].plot(ch2)
 
